@@ -79,7 +79,7 @@ select.addEventListener('change', () => {
 function createMarkup(arr) {
   console.log(arr);
   return arr
-    .filter(elem => elem => elem.reference_image_id !== undefined)
+    .filter(elem => elem.reference_image_id !== undefined)
     .map(
       breed => `<option value="${breed.id}">${breed.name}</option>
     `
