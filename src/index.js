@@ -42,7 +42,7 @@ async function fetch() {
   const data = await fetchBreeds();
   const markup = createMarkup(data);
   select.innerHTML = markup;
-  } catch (err) {
+  } catch (error) {
   hideElements();
   Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
   }
@@ -58,6 +58,10 @@ select.addEventListener('change', () => {
     .then(data => {
       const markupInfo = createMarkupInfo(data);
       catInfo.innerHTML = markupInfo;
+      if (data.length === 0) {
+        alert('Oops! Something went wrong! Try reloading the page!')
+        return hideLoader();
+      }
       hideLoader();
       showElements();
     })
@@ -76,16 +80,18 @@ select.addEventListener('change', () => {
     });
 });
 
+
+
 function createMarkup(arr) {
   console.log(arr);
   return arr
-    .filter(elem => elem.reference_image_id !== undefined)
     .map(
       breed => `<option value="${breed.id}">${breed.name}</option>
     `
     )
     .join('');
 }
+
 
 function createMarkupInfo(ar) {
   return ar
